@@ -15,6 +15,7 @@ import java.util.List;
 public interface IImagemDAO {
     
     public void insert(ImagemReal imagem) throws Exception;
+    public void update(ImagemReal imagem) throws Exception;
     public List<ImagemReal> getAllByIdUsuario(Long idUsuario) throws Exception;
     public List<ImagemReal> getByPath(String path) throws Exception;
     

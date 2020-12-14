@@ -16,5 +16,6 @@ public interface Imagem {
     
     public File loadDisk();
     public ImageIcon getMiniatura();
+    public ImageIcon getImagemCompleta();
     
 }

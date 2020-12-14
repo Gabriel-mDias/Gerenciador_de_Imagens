@@ -19,10 +19,17 @@ public class ImagemProxy implements Imagem{
     private Long id;
     private String path;
     private String titulo;
+    private boolean ativo;
 
     public ImagemProxy(String path, String titulo) {
         this.path = path;
         this.titulo = titulo;
+    }
+
+    public ImagemProxy(ImagemReal imagem) {
+        this.imagem = imagem;
+        this.path = imagem.getPath();
+        this.titulo = imagem.getTitulo();
     }
     
     @Override
@@ -43,6 +50,15 @@ public class ImagemProxy implements Imagem{
         return this.imagem.getMiniatura();
     }
 
+    @Override
+    public ImageIcon getImagemCompleta() {
+        if(this.imagem == null){
+            this.imagem = new ImagemReal(path,titulo);
+        }
+            
+        return this.imagem.getImagemCompleta();
+    }
+    
     public Long getId() {
         return id;
     }
@@ -69,6 +85,14 @@ public class ImagemProxy implements Imagem{
 
     public ImagemReal getImagem() {
         return imagem = new ImagemReal(path, titulo);
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
     
     

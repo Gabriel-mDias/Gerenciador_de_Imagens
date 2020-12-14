@@ -55,7 +55,7 @@ public class ImagemDAO implements IImagemDAO{
         List<ImagemReal> imagens = new ArrayList<>();
         try{
             
-            String SQL = "SELECT i.id, i.path, i.titulo FROM Imagem i INNER JOIN Permissao p ON p.id_imagem = i.id"+
+            String SQL = "SELECT i.id, i.path, i.titulo, i.ativo FROM Imagem i INNER JOIN Permissao p ON p.id_imagem = i.id"+
                         " WHERE p.id_usuario = ?;";
             
             Connection conn = this.gerenciadorConexao.conectar();
@@ -71,6 +71,7 @@ public class ImagemDAO implements IImagemDAO{
                 i.setId(rs.getLong(1));
                 i.setPath(rs.getString(2));
                 i.setTitulo(rs.getString(3));
+                i.setAtivo(rs.getBoolean(4));
                 imagens.add(i);
             }
             
@@ -91,7 +92,7 @@ public class ImagemDAO implements IImagemDAO{
         List<ImagemReal> imagens = new ArrayList<>();
         try{
             
-            String SQL = "SELECT i.id, i.path, i.titulo FROM Imagem i WHERE path LIKE ? ;";
+            String SQL = "SELECT i.id, i.path, i.titulo, i.ativo FROM Imagem i WHERE path LIKE ? ;";
             
             Connection conn = this.gerenciadorConexao.conectar();
             this.gerenciadorConexao.abreTransacao();
@@ -106,6 +107,7 @@ public class ImagemDAO implements IImagemDAO{
                 i.setId(rs.getLong(1));
                 i.setPath(rs.getString(2));
                 i.setTitulo(rs.getString(3));
+                i.setAtivo(rs.getBoolean(4));
                 imagens.add(i);
             }
             
@@ -118,6 +120,32 @@ public class ImagemDAO implements IImagemDAO{
             this.gerenciadorConexao.desfazTransacao();
             this.gerenciadorConexao.close();
             throw new Exception("Erro ao buscar");
+        }
+    }
+
+    @Override
+    public void update(ImagemReal imagem) throws Exception {
+        try{
+            
+            String SQL = "UPDATE Imagem SET path = ?, titulo = ?, ativo = ? WHERE id = ?;";
+            
+            Connection conn = this.gerenciadorConexao.conectar();
+            this.gerenciadorConexao.abreTransacao();
+            
+            PreparedStatement ps = conn.prepareStatement(SQL);
+            ps.setString(1, imagem.getPath());
+            ps.setString(2, imagem.getTitulo());
+            ps.setBoolean(3, imagem.isAtivo());
+            ps.setLong(4, imagem.getId());
+            ps.executeUpdate();
+
+            this.gerenciadorConexao.fechaTransacao();
+            this.gerenciadorConexao.close();
+            
+        }catch(Exception e){
+            this.gerenciadorConexao.desfazTransacao();
+            this.gerenciadorConexao.close();
+            throw new Exception("Erro ao atualizar");
         }
     }
     

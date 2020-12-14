@@ -45,6 +45,7 @@
                           <Component id="btnCompartilhar" max="32767" attributes="0"/>
                           <Component id="btnSolicitar" pref="120" max="32767" attributes="0"/>
                           <Component id="btnExcluir" max="32767" attributes="0"/>
+                          <Component id="btnDesfazer" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -73,7 +74,8 @@
                       <Component id="btnSolicitar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnExcluir" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace pref="214" max="32767" attributes="0"/>
+                      <Component id="btnDesfazer" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -131,6 +133,11 @@
     <Component class="javax.swing.JButton" name="btnExcluir">
       <Properties>
         <Property name="text" type="java.lang.String" value="Excluir"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnDesfazer">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Desfazer"/>
       </Properties>
     </Component>
   </SubComponents>

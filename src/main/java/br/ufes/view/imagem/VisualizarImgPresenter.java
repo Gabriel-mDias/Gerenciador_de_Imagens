@@ -6,13 +6,10 @@
 package br.ufes.view.imagem;
 
 import br.ufes.models.imagem.ImagemReal;
-import br.ufes.models.Usuario;
-import br.ufes.singleton.ImgManipulador;
-import java.awt.Dimension;
-import java.awt.image.BufferedImage;
-import java.beans.PropertyVetoException;
-import javax.swing.ImageIcon;
+import br.ufes.models.imagem.ImagemProxy;
+import br.ufes.singleton.JInternalCentralizador;
 import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,30 +21,25 @@ public class VisualizarImgPresenter {
     private VisualizarImgView view;
 
     public VisualizarImgPresenter(ImagemReal imagem, JDesktopPane desktop) {
-        this.imagem = imagem;
-        this.view = new VisualizarImgView();
         
-        this.atualizarImagem();
-        
-        this.view.setVisible(true);
-        desktop.add(this.view);
-        Dimension desktopSize = desktop.getSize();
-        this.view.setLocation((desktopSize.width - this.view.getSize().width) / 2,(desktopSize.height - this.view.getSize().height) / 2);
-        try {
-            this.view.setSelected(true);
-        } catch (PropertyVetoException ex) {
-            new RuntimeException("Erro ao requisitar o foco para um JInternalFrame");
+        if(!imagem.isAtivo()){
+            JOptionPane.showMessageDialog(view, "Imagem excluída previamente!\n", "Visualizar Imagem", JOptionPane.ERROR_MESSAGE);
+        }else{
+            this.imagem = imagem;
+            this.view = new VisualizarImgView();
+
+            this.atualizarImagem();
+
+            JInternalCentralizador.getInstancia().centralizarView(view, desktop);
         }
     }
     
     private void atualizarImagem(){
-        BufferedImage imgeVisualizada;
-        imgeVisualizada = ImgManipulador.getInstancia().setImagemDimensao(this.imagem.getPath(), 450, 320);
-        ImageIcon imgIcon = new ImageIcon(imgeVisualizada);
+        ImagemProxy proxy = new ImagemProxy(this.imagem);
         
-        this.view.getLblImagem().setIcon(imgIcon);
-        this.view.getTxtTitulo().setText(this.imagem.getTitulo());
-        this.view.getTxtPath().setText(this.imagem.getPath());
+        this.view.getLblImagem().setIcon(proxy.getImagemCompleta());
+        this.view.getTxtTitulo().setText(proxy.getTitulo());
+        this.view.getTxtPath().setText(proxy.getPath());
     }
                 
     

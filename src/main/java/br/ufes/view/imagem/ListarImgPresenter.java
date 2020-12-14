@@ -1,6 +1,7 @@
 
 package br.ufes.view.imagem;
 
+import br.ufes.memento.ZeladorImagem;
 import br.ufes.models.imagem.ImagemReal;
 import br.ufes.models.Usuario;
 import br.ufes.models.imagem.ImagemProxy;
@@ -25,14 +26,16 @@ public class ListarImgPresenter {
     
     private ListarImgView view;
     private List<File> listOfFiles;
-    List<ImagemReal> imagens;
+    private List<ImagemReal> imagens;
     private ImagemService imagemService;
     private Usuario logado;
+    private ZeladorImagem zelador;
     
 
     public ListarImgPresenter(Usuario usuario, JDesktopPane desktop) {
         this.view = new ListarImgView();
         imagemService = new ImagemService();
+        zelador = new ZeladorImagem();
         
         this.reloadImagensBanco();
         
@@ -51,10 +54,49 @@ public class ListarImgPresenter {
             }
         });
         
+        this.view.getBtnExcluir().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    zelador.addMemento(imagemService.delete(getImgSelecionada()));                    
+                    JOptionPane.showMessageDialog(view, "Imagem excluída!\n", "Excluir Imagem", JOptionPane.OK_OPTION);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(view, "Erro ao excluir essa imagem!\n"+ex, "Excluir Imagem", JOptionPane.ERROR_MESSAGE);
+                    throw new RuntimeException("Erro ao excluir a imagem: "+ex);
+                }
+            }
+        });
+        
+        this.view.getBtnDesfazer().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    ImagemReal i = new ImagemReal();
+                    if(zelador.historicoDesfazer()){
+                        i.restaurar(zelador.getUltimo());
+                        imagemService.update(i);
+                        JOptionPane.showMessageDialog(view, "Imagem recuperada!\n", "Desfazer", JOptionPane.OK_OPTION);
+                    }else{
+                        JOptionPane.showMessageDialog(view, "Não há imagens para recuperar!\n", "Desfazer", JOptionPane.OK_OPTION);
+                    }
+                    
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(view, "Erro ao recuperar essa imagem!\n"+ex, "Desfazer", JOptionPane.ERROR_MESSAGE);
+                    throw new RuntimeException("Erro ao atualizar a imagem: "+ex);
+                }
+            }
+        });
+        
+        
         this.view.getBtnVisualizar().addActionListener( new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new VisualizarImgPresenter(getImgSelecionada(), desktop);
+                try{
+                    new VisualizarImgPresenter(imagemService.buscarPorPath(getImgSelecionada().getPath()).get(0), desktop);
+                }catch(Exception ex){
+                    JOptionPane.showMessageDialog(view, "Erro ao visualizar essa imagem!\n"+ex, "Visualizar Imagem", JOptionPane.ERROR_MESSAGE);
+                    throw new RuntimeException("Erro ao visualizar a imagem: "+ex);
+                }
             }
         });
         

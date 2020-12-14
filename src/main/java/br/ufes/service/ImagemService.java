@@ -5,6 +5,7 @@
  */
 package br.ufes.service;
 
+import br.ufes.memento.MementoImagem;
 import br.ufes.models.imagem.ImagemReal;
 import br.ufes.repository.ImagemRepository;
 import java.util.List;
@@ -44,6 +45,25 @@ public class ImagemService {
     
     public List<ImagemReal> getBySubPath(String path) throws Exception{
         return imagemRepository.getByPath(path+"%");
+    }
+    
+    public void update(ImagemReal imagem) throws Exception{
+        this.imagemRepository.update(imagem);
+    }
+    
+    public MementoImagem delete(ImagemReal imagem) throws Exception{
+        imagem = this.buscarPorPath(imagem.getPath()).get(0);
+        MementoImagem preDelete = imagem.getMemento();
+        imagem.setAtivo(false);
+        this.imagemRepository.update(imagem);
+        return preDelete;
+    }
+    
+    public void desfazer(ImagemReal imagem, MementoImagem memento) throws Exception{
+        if(imagem.getId() == memento.getId()){
+            imagem.restaurar(memento);
+            this.imagemRepository.update(imagem);
+        }
     }
 }
 

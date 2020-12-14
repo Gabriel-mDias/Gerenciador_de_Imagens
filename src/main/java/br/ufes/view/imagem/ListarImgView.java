@@ -25,6 +25,7 @@ public class ListarImgView extends javax.swing.JInternalFrame {
         btnCompartilhar = new javax.swing.JButton();
         btnSolicitar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
+        btnDesfazer = new javax.swing.JButton();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -42,6 +43,8 @@ public class ListarImgView extends javax.swing.JInternalFrame {
         btnSolicitar.setText("Solicitar Acesso");
 
         btnExcluir.setText("Excluir");
+
+        btnDesfazer.setText("Desfazer");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -65,7 +68,8 @@ public class ListarImgView extends javax.swing.JInternalFrame {
                             .addComponent(btnVisualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnCompartilhar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSolicitar, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDesfazer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -88,7 +92,8 @@ public class ListarImgView extends javax.swing.JInternalFrame {
                         .addComponent(btnSolicitar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluir)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 214, Short.MAX_VALUE)
+                        .addComponent(btnDesfazer)))
                 .addContainerGap())
         );
 
@@ -123,12 +128,17 @@ public class ListarImgView extends javax.swing.JInternalFrame {
         return btnVisualizar;
     }
 
+    public JButton getBtnDesfazer() {
+        return btnDesfazer;
+    }
+
     
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCompartilhar;
+    private javax.swing.JButton btnDesfazer;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnSolicitar;
     private javax.swing.JButton btnVisualizar;

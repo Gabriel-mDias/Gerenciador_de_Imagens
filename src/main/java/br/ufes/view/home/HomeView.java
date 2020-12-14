@@ -38,7 +38,7 @@ public class HomeView extends javax.swing.JFrame {
 
         lblDataLogin.setText("Data-Atual");
 
-        btnNotificacoes.setText("Notificações");
+        btnNotificacoes.setText("Notificações(0)");
 
         javax.swing.GroupLayout bottomMenuLayout = new javax.swing.GroupLayout(bottomMenu);
         bottomMenu.setLayout(bottomMenuLayout);
@@ -50,7 +50,7 @@ public class HomeView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lblDataLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNotificacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnNotificacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         bottomMenuLayout.setVerticalGroup(

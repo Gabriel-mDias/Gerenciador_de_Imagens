@@ -45,4 +45,15 @@ public class ImagemRepository {
         
         return imagemDAO.getByPath(path);
     }
+    public void update(ImagemReal imagem) throws Exception{
+        if(imagem == null){
+            throw new RuntimeException("Atualização com imagem nula é inválida!");
+        }else if(imagem.getPath() == null){
+            throw new RuntimeException("Atualização de imagem com path nula é inválida!");
+        }else if(imagem.getId() == null){
+            throw new RuntimeException("Atualização de imagem com id nula é inválida!");
+        }
+        
+        this.imagemDAO.update(imagem);
+    }
 }

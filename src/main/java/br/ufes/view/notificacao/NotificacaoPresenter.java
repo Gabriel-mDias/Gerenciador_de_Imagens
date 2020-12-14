@@ -7,12 +7,11 @@ package br.ufes.view.notificacao;
 
 import br.ufes.models.Notificacao;
 import br.ufes.models.Usuario;
+import br.ufes.observable.Observado;
 import br.ufes.service.NotificacaoService;
 import br.ufes.singleton.JInternalCentralizador;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyVetoException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +22,7 @@ import javax.swing.JDesktopPane;
  *
  * @author gabriel
  */
-public class NotificacaoPresenter {
+public class NotificacaoPresenter extends Observado {
     
     private NotificacaoView view;
     private NotificacaoService notificacaoService;
@@ -49,6 +48,7 @@ public class NotificacaoPresenter {
                 } catch (Exception ex) {
                     Logger.getLogger(NotificacaoPresenter.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                notificarObservadores();
             }
         });
         

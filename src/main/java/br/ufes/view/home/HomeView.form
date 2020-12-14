@@ -88,7 +88,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="lblDataLogin" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnNotificacoes" min="-2" pref="128" max="-2" attributes="0"/>
+                  <Component id="btnNotificacoes" min="-2" pref="160" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -120,7 +120,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnNotificacoes">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Notifica&#xe7;&#xf5;es"/>
+            <Property name="text" type="java.lang.String" value="Notifica&#xe7;&#xf5;es(0)"/>
           </Properties>
         </Component>
       </SubComponents>
