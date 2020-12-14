@@ -26,7 +26,7 @@ public class HomeView extends javax.swing.JFrame {
         Desktop = new javax.swing.JDesktopPane();
         barTopo = new javax.swing.JMenuBar();
         menuImg = new javax.swing.JMenu();
-        itemVisualizarImg = new javax.swing.JMenuItem();
+        itemListarImg = new javax.swing.JMenuItem();
         itemUsuario = new javax.swing.JMenu();
         itemListaUsuario = new javax.swing.JMenuItem();
 
@@ -66,13 +66,13 @@ public class HomeView extends javax.swing.JFrame {
 
         menuImg.setText("Imagens");
 
-        itemVisualizarImg.setText("Visualizar Imagens");
-        itemVisualizarImg.addActionListener(new java.awt.event.ActionListener() {
+        itemListarImg.setText("Listar Imagens");
+        itemListarImg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemVisualizarImgActionPerformed(evt);
+                itemListarImgActionPerformed(evt);
             }
         });
-        menuImg.add(itemVisualizarImg);
+        menuImg.add(itemListarImg);
 
         barTopo.add(menuImg);
 
@@ -103,9 +103,9 @@ public class HomeView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void itemVisualizarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVisualizarImgActionPerformed
+    private void itemListarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemListarImgActionPerformed
         
-    }//GEN-LAST:event_itemVisualizarImgActionPerformed
+    }//GEN-LAST:event_itemListarImgActionPerformed
 
     public JDesktopPane getDesktop() {
         return Desktop;
@@ -115,8 +115,8 @@ public class HomeView extends javax.swing.JFrame {
         return itemListaUsuario;
     }
 
-    public JMenuItem getItemVisualizarImg() {
-        return itemVisualizarImg;
+    public JMenuItem getItemListarImg() {
+        return itemListarImg;
     }
 
     public JMenu getMenuAdmin() {
@@ -147,8 +147,8 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JPanel bottomMenu;
     private javax.swing.JButton btnNotificacoes;
     private javax.swing.JMenuItem itemListaUsuario;
+    private javax.swing.JMenuItem itemListarImg;
     private javax.swing.JMenu itemUsuario;
-    private javax.swing.JMenuItem itemVisualizarImg;
     private javax.swing.JLabel lblDataLogin;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenu menuImg;

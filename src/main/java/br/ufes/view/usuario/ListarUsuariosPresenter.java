@@ -8,6 +8,7 @@ package br.ufes.view.usuario;
 import br.ufes.models.Usuario;
 import br.ufes.observable.Observador;
 import br.ufes.service.UsuarioService;
+import br.ufes.singleton.JInternalCentralizador;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -82,15 +83,7 @@ public class ListarUsuariosPresenter implements Observador{
             }
         });
         
-        this.view.setVisible(true);
-        desktop.add(this.view);
-        Dimension desktopSize = desktop.getSize();
-        this.view.setLocation((desktopSize.width - this.view.getSize().width) / 2,(desktopSize.height - this.view.getSize().height) / 2);
-        try {
-            this.view.setSelected(true);
-        } catch (PropertyVetoException ex) {
-            new RuntimeException("Erro ao requisitar o foco para um JInternalFrame");
-        }
+        JInternalCentralizador.getInstancia().centralizarView(view, desktop);
     }
     
     private void preencheTabela(List<Usuario> usuarios){

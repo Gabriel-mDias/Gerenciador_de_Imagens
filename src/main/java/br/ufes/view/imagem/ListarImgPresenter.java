@@ -1,14 +1,13 @@
 
 package br.ufes.view.imagem;
 
-import br.ufes.models.Imagem;
+import br.ufes.models.imagem.ImagemReal;
+import br.ufes.models.Usuario;
+import br.ufes.models.imagem.ImagemProxy;
 import br.ufes.service.ImagemService;
-import br.ufes.singleton.ImgManipulador;
-import java.awt.Dimension;
+import br.ufes.singleton.JInternalCentralizador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.beans.PropertyVetoException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,7 +17,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 
@@ -27,18 +25,23 @@ public class ListarImgPresenter {
     
     private ListarImgView view;
     private List<File> listOfFiles;
-    List<Imagem> imagens;
+    List<ImagemReal> imagens;
     private ImagemService imagemService;
+    private Usuario logado;
     
 
-    public ListarImgPresenter(JDesktopPane desktop) {
+    public ListarImgPresenter(Usuario usuario, JDesktopPane desktop) {
         this.view = new ListarImgView();
         imagemService = new ImagemService();
         
         this.reloadImagensBanco();
         
         this.view.getListaImg().addListSelectionListener((e) -> {
-            this.view.getTxtPath().setText(imagens.get(this.view.getListaImg().getSelectedIndex()).getPath());
+            int posicao = this.view.getListaImg().getSelectedIndex();
+            if(posicao >= 0){
+                this.view.getTxtPath().setText(imagens.get(this.view.getListaImg().getSelectedIndex()).getPath());
+            }
+            
         });
         
         this.view.getBtnBuscar().addActionListener( new ActionListener() {
@@ -48,27 +51,37 @@ public class ListarImgPresenter {
             }
         });
         
+        this.view.getBtnVisualizar().addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new VisualizarImgPresenter(getImgSelecionada(), desktop);
+            }
+        });
         
-        this.view.setVisible(true);
-        desktop.add(this.view);
-        Dimension desktopSize = desktop.getSize();
-        this.view.setLocation((desktopSize.width - this.view.getSize().width) / 2,(desktopSize.height - this.view.getSize().height) / 2);
-        try {
-            this.view.setSelected(true);
-        } catch (PropertyVetoException ex) {
-            new RuntimeException("Erro ao requisitar o foco para um JInternalFrame");
-        }
+        this.view.getBtnSolicitar().addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ManterAcessoPresenter(usuario, getImgSelecionada(), desktop);
+            }
+        });
+        
+        this.view.getBtnCompartilhar().addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ManterAcessoPresenter(getImgSelecionada(), desktop);
+            }
+        });
+        
+        JInternalCentralizador.getInstancia().centralizarView(view, desktop);
     }
     
     private void listagemImg(){
         int count = 0;
         DefaultListModel listModel = new DefaultListModel();
-        for(Imagem imagemCadastrada : this.imagens){
+        for(ImagemReal imagemCadastrada : this.imagens){
             if ( imagemCadastrada.getPath().endsWith("jpg")  || imagemCadastrada.getPath().endsWith("jpeg") || imagemCadastrada.getPath().endsWith("png")) {
-                BufferedImage imagem;
-                imagem = ImgManipulador.getInstancia().setImagemDimensao(imagemCadastrada.getPath(), 120, 80);
-                ImageIcon ii = new ImageIcon(imagem);
-                listModel.add(count++, ii);
+                ImagemProxy proxy = new ImagemProxy(imagemCadastrada.getPath(), imagemCadastrada.getTitulo());
+                listModel.add(count++, proxy.getMiniatura());
             }
             
         }
@@ -96,7 +109,7 @@ public class ListarImgPresenter {
             String name = arquivo.toString();
 
             if ( name.endsWith("jpg")  || name.endsWith("jpeg") || name.endsWith("png")) {         
-                imagens.add(new Imagem(arquivo.getPath(), arquivo.getName()));
+                imagens.add(new ImagemReal(arquivo.getPath(), arquivo.getName()));
             }
             
         }
@@ -120,5 +133,10 @@ public class ListarImgPresenter {
         
         this.listagemImg();
     }
+    
+    private ImagemReal getImgSelecionada(){
+        return imagens.get(this.view.getListaImg().getSelectedIndex());
+    }
+    
 }
 

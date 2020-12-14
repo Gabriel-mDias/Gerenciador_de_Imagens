@@ -5,7 +5,7 @@
  */
 package br.ufes.service;
 
-import br.ufes.models.Imagem;
+import br.ufes.models.imagem.ImagemReal;
 import br.ufes.repository.ImagemRepository;
 import java.util.List;
 
@@ -21,28 +21,28 @@ public class ImagemService {
         this.imagemRepository = new ImagemRepository();
     }
     
-    public List<Imagem> buscarPorPath(String path) throws Exception{
+    public List<ImagemReal> buscarPorPath(String path) throws Exception{
         return imagemRepository.getByPath(path);
     }
     
-    public List<Imagem> buscarPorIdUsuario(Long idUsuario) throws Exception{
+    public List<ImagemReal> buscarPorIdUsuario(Long idUsuario) throws Exception{
         return imagemRepository.getAllByIdUsuario(idUsuario);
     }
     
-    public void inserir(Imagem imagem) throws Exception{
+    public void inserir(ImagemReal imagem) throws Exception{
         if(this.imagemRepository.getByPath(imagem.getPath()).isEmpty()){
             this.imagemRepository.insert(imagem);
         }
         
     }
     
-    public void inserirTodas(List<Imagem> imagens) throws Exception{
-        for(Imagem imagem : imagens){
+    public void inserirTodas(List<ImagemReal> imagens) throws Exception{
+        for(ImagemReal imagem : imagens){
             this.inserir(imagem);
         }
     }
     
-    public List<Imagem> getBySubPath(String path) throws Exception{
+    public List<ImagemReal> getBySubPath(String path) throws Exception{
         return imagemRepository.getByPath(path+"%");
     }
 }

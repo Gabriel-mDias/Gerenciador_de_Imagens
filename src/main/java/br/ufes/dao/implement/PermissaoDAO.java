@@ -7,7 +7,9 @@ package br.ufes.dao.implement;
 
 import br.ufes.dao.db.connection.ConectorSQLite;
 import br.ufes.dao.interfaces.IPermissaoDAO;
+import br.ufes.models.imagem.ImagemReal;
 import br.ufes.models.Permissao;
+import br.ufes.models.Usuario;
 import java.util.List;
 
 /**
@@ -24,6 +26,11 @@ public class PermissaoDAO implements IPermissaoDAO{
     
     @Override
     public List<Permissao> getByIdUsuario(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Permissao getPermissao(Usuario usuario, ImagemReal imagem) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

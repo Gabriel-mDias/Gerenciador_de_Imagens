@@ -2,13 +2,12 @@ package br.ufes.view.usuario;
 
 import br.ufes.models.Usuario;
 import br.ufes.observable.Observado;
+import br.ufes.singleton.JInternalCentralizador;
 import br.ufes.view.usuario.state.EditarUsuarioState;
 import br.ufes.view.usuario.state.InserirUsuarioState;
 import br.ufes.view.usuario.state.ManterUsuarioState;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyVetoException;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 
@@ -39,15 +38,7 @@ public class ManterUsuarioPresenter extends Observado{
             }
         });
         
-        this.view.setVisible(true);
-        desktop.add(this.view);
-        Dimension desktopSize = desktop.getSize();
-        this.view.setLocation((desktopSize.width - this.view.getSize().width) / 2,(desktopSize.height - this.view.getSize().height) / 2);
-        try {
-            this.view.setSelected(true);
-        } catch (PropertyVetoException ex) {
-            new RuntimeException("Erro ao requisitar o foco para um JInternalFrame");
-        }
+        JInternalCentralizador.getInstancia().centralizarView(view, desktop);
     }
 
     public ManterUsuarioPresenter(JDesktopPane desktop) {
@@ -65,15 +56,7 @@ public class ManterUsuarioPresenter extends Observado{
             }
         });
         
-        this.view.setVisible(true);
-        desktop.add(this.view);
-        Dimension desktopSize = desktop.getSize();
-        this.view.setLocation((desktopSize.width - this.view.getSize().width) / 2,(desktopSize.height - this.view.getSize().height) / 2);
-        try {
-            this.view.setSelected(true);
-        } catch (PropertyVetoException ex) {
-            new RuntimeException("Erro ao requisitar o foco para um JInternalFrame");
-        }
+        JInternalCentralizador.getInstancia().centralizarView(view, desktop);
     }
     
     private void setTela(Usuario usuario){

@@ -1,23 +1,25 @@
 
 package br.ufes.models;
 
+import br.ufes.models.imagem.ImagemReal;
+
 
 public class Permissao {
     
     private Long id;
     private Usuario usuario;
-    private Imagem imagem;
+    private ImagemReal imagem;
     private boolean visualizar;
     private boolean excluir;
-    private boolean editar;
+    private boolean compartilhar;
 
-    public Permissao(Long id, Usuario usuario, Imagem imagem, boolean visualizar, boolean excluir, boolean editar) {
+    public Permissao(Long id, Usuario usuario, ImagemReal imagem, boolean visualizar, boolean excluir, boolean compartilhar) {
         this.id = id;
         this.usuario = usuario;
         this.imagem = imagem;
         this.visualizar = visualizar;
         this.excluir = excluir;
-        this.editar = editar;
+        this.compartilhar = compartilhar;
     }
 
     public Permissao() {
@@ -39,11 +41,11 @@ public class Permissao {
         this.usuario = usuario;
     }
 
-    public Imagem getImagem() {
+    public ImagemReal getImagem() {
         return imagem;
     }
 
-    public void setImagem(Imagem imagem) {
+    public void setImagem(ImagemReal imagem) {
         this.imagem = imagem;
     }
 
@@ -63,12 +65,12 @@ public class Permissao {
         this.excluir = excluir;
     }
 
-    public boolean isEditar() {
-        return editar;
+    public boolean isCompartilhar() {
+        return compartilhar;
     }
 
-    public void setEditar(boolean editar) {
-        this.editar = editar;
+    public void setCompartilhar(boolean compartilhar) {
+        this.compartilhar = compartilhar;
     }
     
     

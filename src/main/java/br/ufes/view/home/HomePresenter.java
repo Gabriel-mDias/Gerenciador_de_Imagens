@@ -27,10 +27,10 @@ public class HomePresenter {
             this.estado = new UsuarioHomePresenter(this);
         }
         
-        this.view.getItemVisualizarImg().addActionListener(new ActionListener() {
+        this.view.getItemListarImg().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ListarImgPresenter(view.getDesktop());
+                new ListarImgPresenter(getLogadoAtual(), view.getDesktop());
             }
         });
         

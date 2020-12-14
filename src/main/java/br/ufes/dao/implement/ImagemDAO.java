@@ -7,7 +7,7 @@ package br.ufes.dao.implement;
 
 import br.ufes.dao.db.connection.ConectorSQLite;
 import br.ufes.dao.interfaces.IImagemDAO;
-import br.ufes.models.Imagem;
+import br.ufes.models.imagem.ImagemReal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +27,7 @@ public class ImagemDAO implements IImagemDAO{
     }
 
     @Override
-    public void insert(Imagem imagem) throws Exception {
+    public void insert(ImagemReal imagem) throws Exception {
         try{
             
             String SQL = "INSERT INTO Imagem (path, titulo) VALUES (?, ?) ";
@@ -51,8 +51,8 @@ public class ImagemDAO implements IImagemDAO{
     }
 
     @Override
-    public List<Imagem> getAllByIdUsuario(Long idUsuario) throws Exception {
-        List<Imagem> imagens = new ArrayList<>();
+    public List<ImagemReal> getAllByIdUsuario(Long idUsuario) throws Exception {
+        List<ImagemReal> imagens = new ArrayList<>();
         try{
             
             String SQL = "SELECT i.id, i.path, i.titulo FROM Imagem i INNER JOIN Permissao p ON p.id_imagem = i.id"+
@@ -67,7 +67,7 @@ public class ImagemDAO implements IImagemDAO{
             
             
             while(rs.next()){
-                Imagem i = new Imagem();
+                ImagemReal i = new ImagemReal();
                 i.setId(rs.getLong(1));
                 i.setPath(rs.getString(2));
                 i.setTitulo(rs.getString(3));
@@ -87,8 +87,8 @@ public class ImagemDAO implements IImagemDAO{
     }
 
     @Override
-    public List<Imagem> getByPath(String path) throws Exception {
-        List<Imagem> imagens = new ArrayList<>();
+    public List<ImagemReal> getByPath(String path) throws Exception {
+        List<ImagemReal> imagens = new ArrayList<>();
         try{
             
             String SQL = "SELECT i.id, i.path, i.titulo FROM Imagem i WHERE path LIKE ? ;";
@@ -102,7 +102,7 @@ public class ImagemDAO implements IImagemDAO{
             
             
             while(rs.next()){
-                Imagem i = new Imagem();
+                ImagemReal i = new ImagemReal();
                 i.setId(rs.getLong(1));
                 i.setPath(rs.getString(2));
                 i.setTitulo(rs.getString(3));

@@ -9,12 +9,12 @@
             <Property name="text" type="java.lang.String" value="Imagens"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="itemVisualizarImg">
+            <MenuItem class="javax.swing.JMenuItem" name="itemListarImg">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Visualizar Imagens"/>
+                <Property name="text" type="java.lang.String" value="Listar Imagens"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemVisualizarImgActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemListarImgActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

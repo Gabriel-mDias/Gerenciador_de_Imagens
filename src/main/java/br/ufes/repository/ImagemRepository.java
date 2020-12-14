@@ -7,7 +7,7 @@ package br.ufes.repository;
 
 import br.ufes.dao.implement.ImagemDAO;
 import br.ufes.dao.interfaces.IImagemDAO;
-import br.ufes.models.Imagem;
+import br.ufes.models.imagem.ImagemReal;
 import java.util.List;
 
 /**
@@ -22,7 +22,7 @@ public class ImagemRepository {
         this.imagemDAO = new ImagemDAO();
     }
     
-    public void insert(Imagem imagem) throws Exception{
+    public void insert(ImagemReal imagem) throws Exception{
         if(imagem == null){
             throw new RuntimeException("Inserção com imagem nula é inválida!");
         }else if(imagem.getPath() == null){
@@ -31,14 +31,14 @@ public class ImagemRepository {
         
         imagemDAO.insert(imagem);
     }
-    public List<Imagem> getAllByIdUsuario(Long idUsuario) throws Exception{
+    public List<ImagemReal> getAllByIdUsuario(Long idUsuario) throws Exception{
         if(idUsuario == null){
             throw new RuntimeException("Busca com id nula é inválida!");
         }
         
         return imagemDAO.getAllByIdUsuario(idUsuario);
     }
-    public List<Imagem> getByPath(String path) throws Exception{
+    public List<ImagemReal> getByPath(String path) throws Exception{
         if(path == null){
             throw new RuntimeException("Busca com path nula é inválida!");
         }

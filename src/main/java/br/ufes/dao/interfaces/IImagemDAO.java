@@ -5,7 +5,7 @@
  */
 package br.ufes.dao.interfaces;
 
-import br.ufes.models.Imagem;
+import br.ufes.models.imagem.ImagemReal;
 import java.util.List;
 
 /**
@@ -14,8 +14,8 @@ import java.util.List;
  */
 public interface IImagemDAO {
     
-    public void insert(Imagem imagem) throws Exception;
-    public List<Imagem> getAllByIdUsuario(Long idUsuario) throws Exception;
-    public List<Imagem> getByPath(String path) throws Exception;
+    public void insert(ImagemReal imagem) throws Exception;
+    public List<ImagemReal> getAllByIdUsuario(Long idUsuario) throws Exception;
+    public List<ImagemReal> getByPath(String path) throws Exception;
     
 }
