@@ -29,6 +29,8 @@ public class HomeView extends javax.swing.JFrame {
         itemListarImg = new javax.swing.JMenuItem();
         itemUsuario = new javax.swing.JMenu();
         itemListaUsuario = new javax.swing.JMenuItem();
+        menuSolicitacoes = new javax.swing.JMenu();
+        itemSolicitacoes = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +84,13 @@ public class HomeView extends javax.swing.JFrame {
         itemUsuario.add(itemListaUsuario);
 
         barTopo.add(itemUsuario);
+
+        menuSolicitacoes.setText("Solicitações");
+
+        itemSolicitacoes.setText("Listar Solicitações");
+        menuSolicitacoes.add(itemSolicitacoes);
+
+        barTopo.add(menuSolicitacoes);
 
         setJMenuBar(barTopo);
 
@@ -138,6 +147,14 @@ public class HomeView extends javax.swing.JFrame {
     public JLabel getLblDataLogin() {
         return lblDataLogin;
     }
+
+    public JMenuItem getItemSolicitacoes() {
+        return itemSolicitacoes;
+    }
+
+    public JMenu getMenuSolicitacoes() {
+        return menuSolicitacoes;
+    }
     
     
     
@@ -148,9 +165,11 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JButton btnNotificacoes;
     private javax.swing.JMenuItem itemListaUsuario;
     private javax.swing.JMenuItem itemListarImg;
+    private javax.swing.JMenuItem itemSolicitacoes;
     private javax.swing.JMenu itemUsuario;
     private javax.swing.JLabel lblDataLogin;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenu menuImg;
+    private javax.swing.JMenu menuSolicitacoes;
     // End of variables declaration//GEN-END:variables
 }

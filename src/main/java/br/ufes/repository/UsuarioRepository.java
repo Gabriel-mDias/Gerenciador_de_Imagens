@@ -3,6 +3,7 @@ package br.ufes.repository;
 
 import br.ufes.dao.implement.UsuarioDAO;
 import br.ufes.dao.interfaces.IUsuarioDAO;
+import br.ufes.models.Solicitacao;
 import br.ufes.models.Usuario;
 import java.util.List;
 
@@ -73,4 +74,5 @@ public class UsuarioRepository {
         
         return usuarioDAO.findByLogin(login);
     }
+    
 }

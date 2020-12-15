@@ -6,8 +6,10 @@
 package br.ufes.service;
 
 import br.ufes.models.Permissao;
+import br.ufes.models.Usuario;
+import br.ufes.models.imagem.ImagemReal;
+import br.ufes.repository.ImagemRepository;
 import br.ufes.repository.PermissaoRepository;
-import java.util.List;
 
 /**
  *
@@ -16,12 +18,25 @@ import java.util.List;
 public class PermissaoService {
     
     private PermissaoRepository permissaoRepository;
+    private ImagemRepository imagemRepository;
 
     public PermissaoService() {
         this.permissaoRepository = new PermissaoRepository();
+        this.imagemRepository = new ImagemRepository();
     }
     
-    public List<Permissao> buscaPermissao(Long idUsuario) throws Exception{
-        return permissaoRepository.getByIdUsuario(idUsuario);
+    public Permissao buscaPermissao(Usuario usuario, ImagemReal imagem) throws Exception{
+        if(imagem.getId() == null){
+            imagem = this.imagemRepository.getByPath(imagem.getPath()).get(0);
+        }
+        return permissaoRepository.getPermissao(usuario, imagem);
+    }
+    
+    public Permissao buscaPermissaoId(Permissao permissao) throws Exception{
+        return permissaoRepository.getPermissaoByIdsUsuarioImagem(permissao);
+    }
+    
+    public Long inserir(Permissao permissao) throws Exception{
+        return this.permissaoRepository.insert(permissao);
     }
 }

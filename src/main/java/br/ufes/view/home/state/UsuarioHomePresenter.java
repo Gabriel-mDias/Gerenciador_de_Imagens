@@ -17,6 +17,7 @@ public class UsuarioHomePresenter extends HomeState{
         super(controlador);
         
         this.controlador.getView().getMenuAdmin().setEnabled(false);
+        this.controlador.getView().getMenuSolicitacoes().setEnabled(false);
         this.controlador.getView().getLblUsuario().setText("Usuário logado: "+this.controlador.getLogadoAtual().getLogin()+" (Usuário)");
     }
     

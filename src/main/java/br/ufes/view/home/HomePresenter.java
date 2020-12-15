@@ -9,6 +9,7 @@ import br.ufes.view.home.state.HomeState;
 import br.ufes.view.home.state.UsuarioHomePresenter;
 import br.ufes.view.imagem.ListarImgPresenter;
 import br.ufes.view.notificacao.NotificacaoPresenter;
+import br.ufes.view.solicitacoes.ListarSolicitacoesPresenter;
 import br.ufes.view.usuario.ListarUsuariosPresenter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -70,6 +71,14 @@ public class HomePresenter implements Observador {
                 atualizarValorNotificacoes();
             }
         });
+        
+        this.view.getItemSolicitacoes().addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ListarSolicitacoesPresenter(view.getDesktop(), getLogadoAtual());
+            }
+        });
+        
         
         
         this.view.setLocationRelativeTo(null);

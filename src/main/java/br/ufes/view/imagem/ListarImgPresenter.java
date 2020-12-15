@@ -2,10 +2,12 @@
 package br.ufes.view.imagem;
 
 import br.ufes.memento.ZeladorImagem;
+import br.ufes.models.Permissao;
 import br.ufes.models.imagem.ImagemReal;
 import br.ufes.models.Usuario;
 import br.ufes.models.imagem.ImagemProxy;
 import br.ufes.service.ImagemService;
+import br.ufes.service.PermissaoService;
 import br.ufes.singleton.JInternalCentralizador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,14 +30,17 @@ public class ListarImgPresenter {
     private List<File> listOfFiles;
     private List<ImagemReal> imagens;
     private ImagemService imagemService;
+    private PermissaoService permissaoService;
     private Usuario logado;
     private ZeladorImagem zelador;
     
 
     public ListarImgPresenter(Usuario usuario, JDesktopPane desktop) {
         this.view = new ListarImgView();
-        imagemService = new ImagemService();
+        this.imagemService = new ImagemService();
+        this.permissaoService = new PermissaoService();
         zelador = new ZeladorImagem();
+        this.logado = usuario;
         
         this.reloadImagensBanco();
         
@@ -58,10 +63,15 @@ public class ListarImgPresenter {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    zelador.addMemento(imagemService.delete(getImgSelecionada()));                    
-                    JOptionPane.showMessageDialog(view, "Imagem excluída!\n", "Excluir Imagem", JOptionPane.OK_OPTION);
+                    Permissao p = permissaoService.buscaPermissao(logado, getImgSelecionada());
+                    if(p!=null && p.isExcluir()){
+                        zelador.addMemento(imagemService.delete(getImgSelecionada()));                    
+                        JOptionPane.showMessageDialog(view, "Imagem excluída!\n", "Excluir Imagem", JOptionPane.OK_OPTION);
+                    }else{
+                        JOptionPane.showMessageDialog(view, "Você não tem permissão para excluir essa imagem!\n", "Excluir Imagem", JOptionPane.OK_OPTION);
+                    }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(view, "Erro ao excluir essa imagem!\n"+ex, "Excluir Imagem", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(view, "Erro ao excluir essa imagem!\nTente solicitar permissão para um administrador", "Excluir Imagem", JOptionPane.ERROR_MESSAGE);
                     throw new RuntimeException("Erro ao excluir a imagem: "+ex);
                 }
             }
@@ -81,7 +91,7 @@ public class ListarImgPresenter {
                     }
                     
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(view, "Erro ao recuperar essa imagem!\n"+ex, "Desfazer", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(view, "Erro ao recuperar essa imagem!\n", "Desfazer", JOptionPane.ERROR_MESSAGE);
                     throw new RuntimeException("Erro ao atualizar a imagem: "+ex);
                 }
             }
@@ -92,9 +102,14 @@ public class ListarImgPresenter {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    new VisualizarImgPresenter(imagemService.buscarPorPath(getImgSelecionada().getPath()).get(0), desktop);
+                    Permissao p = permissaoService.buscaPermissao(logado, getImgSelecionada());
+                    if(p!=null && p.isVisualizar()){
+                        new VisualizarImgPresenter(imagemService.buscarPorPath(getImgSelecionada().getPath()).get(0), desktop);
+                    }else{
+                        JOptionPane.showMessageDialog(view, "Você não tem permissão para visualizar essa imagem!\nTente solicitar permissão para um administrador", "Visualizar Imagem", JOptionPane.OK_OPTION);
+                    }
                 }catch(Exception ex){
-                    JOptionPane.showMessageDialog(view, "Erro ao visualizar essa imagem!\n"+ex, "Visualizar Imagem", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(view, "Erro ao visualizar essa imagem!\n\nTente solicitar permissão para um administrador", "Visualizar Imagem", JOptionPane.ERROR_MESSAGE);
                     throw new RuntimeException("Erro ao visualizar a imagem: "+ex);
                 }
             }
@@ -110,7 +125,17 @@ public class ListarImgPresenter {
         this.view.getBtnCompartilhar().addActionListener( new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ManterAcessoPresenter(getImgSelecionada(), desktop);
+                try {
+                    Permissao p = permissaoService.buscaPermissao(logado, getImgSelecionada());
+                    if(p!=null && p.isExcluir()){
+                        new ManterAcessoPresenter(getImgSelecionada(), desktop);
+                    }else{
+                        JOptionPane.showMessageDialog(view, "Você não tem permissão para compartilhar essa imagem!\nTente solicitar permissão para um administrador", "Compartilhar Imagem", JOptionPane.OK_OPTION);
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(view, "Erro ao compartilhar essa imagem!\nVerifique suas permissões!", "Compartilhar Imagem", JOptionPane.ERROR_MESSAGE);
+                }
+                
             }
         });
         

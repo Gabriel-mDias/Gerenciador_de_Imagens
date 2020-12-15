@@ -6,7 +6,6 @@
 package br.ufes.dao.interfaces;
 
 import br.ufes.models.Notificacao;
-import br.ufes.models.Usuario;
 import java.util.List;
 
 /**
