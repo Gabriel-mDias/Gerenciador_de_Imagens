@@ -10,6 +10,7 @@ import br.ufes.models.Usuario;
 import br.ufes.models.imagem.ImagemReal;
 import br.ufes.repository.ImagemRepository;
 import br.ufes.repository.PermissaoRepository;
+import java.util.List;
 
 /**
  *
@@ -38,5 +39,13 @@ public class PermissaoService {
     
     public Long inserir(Permissao permissao) throws Exception{
         return this.permissaoRepository.insert(permissao);
+    }
+    
+    public List<Permissao> buscaPorUsuario(Usuario usuario) throws Exception{
+        return this.permissaoRepository.getByUsuario(usuario);
+    }
+    
+    public void update(Permissao permissao) throws Exception{
+        this.permissaoRepository.update(permissao);
     }
 }

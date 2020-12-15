@@ -9,10 +9,9 @@ import br.ufes.models.Usuario;
 import br.ufes.observable.Observador;
 import br.ufes.service.UsuarioService;
 import br.ufes.singleton.JInternalCentralizador;
-import java.awt.Dimension;
+import br.ufes.view.usuario.permissao.PermissaoPresenter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyVetoException;
 import java.util.List;
 import java.util.ListIterator;
 import javax.swing.JDesktopPane;
@@ -82,6 +81,20 @@ public class ListarUsuariosPresenter implements Observador{
                 }
             }
         });
+        
+        this.view.getBtnPermissao().addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Usuario u = usuarioSelecionado();
+                if(u != null){
+                    new PermissaoPresenter(desktop, u);
+                }else{
+                    JOptionPane.showMessageDialog(view, "Nenhum usuário selecionado!\n", "Permissões", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            }
+        });
+        
         
         JInternalCentralizador.getInstancia().centralizarView(view, desktop);
     }

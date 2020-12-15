@@ -24,6 +24,7 @@ public class CadastroPresenter {
     
     public CadastroPresenter(LoginPresenter login) {
         this.view = new CadastroView();
+        this.usuarioService = new UsuarioService();
         
         this.view.getBtnLogin().addActionListener(new ActionListener() {
             @Override
@@ -34,7 +35,7 @@ public class CadastroPresenter {
                         u.setAdimin(true);
                         usuarioService.inserir(u);
                         new LoginPresenter();
-                        view.setVisible(true);
+                        view.setVisible(false);
                     }
                 } catch (Exception ex) {
                     Logger.getLogger(CadastroPresenter.class.getName()).log(Level.SEVERE, null, ex);

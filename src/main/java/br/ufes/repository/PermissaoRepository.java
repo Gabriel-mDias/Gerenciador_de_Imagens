@@ -10,12 +10,13 @@ import br.ufes.dao.interfaces.IPermissaoDAO;
 import br.ufes.models.Permissao;
 import br.ufes.models.Usuario;
 import br.ufes.models.imagem.ImagemReal;
+import java.util.List;
 
 /**
  *
  * @author gabriel
  */
-public class PermissaoRepository implements IPermissaoDAO{
+public class PermissaoRepository{
     
     private IPermissaoDAO permissaoDAO;
 
@@ -23,7 +24,7 @@ public class PermissaoRepository implements IPermissaoDAO{
         this.permissaoDAO = new PermissaoDAO();
     }
     
-    @Override
+
     public Permissao getPermissao(Usuario usuario, ImagemReal imagem) throws Exception {
         if(usuario == null){
             throw new RuntimeException("Usuário fornecida é nulo!");
@@ -34,7 +35,7 @@ public class PermissaoRepository implements IPermissaoDAO{
         return permissaoDAO.getPermissao(usuario, imagem);
     }
 
-    @Override
+
     public Long insert(Permissao permissao) throws Exception {
         if(permissao == null){
             throw new RuntimeException("Inserção com permissão fornecida nula é inválida!");
@@ -43,7 +44,7 @@ public class PermissaoRepository implements IPermissaoDAO{
         return this.permissaoDAO.insert(permissao);
     }
     
-    @Override
+
     public void update(Permissao permissao) throws Exception {
         if(permissao == null){
             throw new RuntimeException("Atualização com permissão fornecida nula é inválida!");
@@ -52,7 +53,7 @@ public class PermissaoRepository implements IPermissaoDAO{
         this.permissaoDAO.update(permissao);
     }
 
-    @Override
+
     public Permissao getPermissaoByIdsUsuarioImagem(Permissao permissao) throws Exception {
         if(permissao == null){
             throw new RuntimeException("Inserção com permissão fornecida nula é inválida!");
@@ -61,13 +62,21 @@ public class PermissaoRepository implements IPermissaoDAO{
         return this.permissaoDAO.getPermissaoByIdsUsuarioImagem(permissao);
     }
 
-    @Override
+
     public Permissao getPermissaoById(Long id) throws Exception {
         if(id == null){
             throw new RuntimeException("Busca por permissão com id fornecida nula é inválida!");
         }
         
         return this.permissaoDAO.getPermissaoById(id);
+    }
+    
+    public List<Permissao> getByUsuario(Usuario usuario) throws Exception{
+        if(usuario == null){
+            throw new RuntimeException("Busca de permissão com usuário fornecido nulo é inválida!");
+        }
+        
+        return this.permissaoDAO.getByUsuario(usuario);
     }
     
 }

@@ -139,6 +139,7 @@ public class ListarImgPresenter {
             }
         });
         
+        
         JInternalCentralizador.getInstancia().centralizarView(view, desktop);
     }
     
