@@ -21,14 +21,7 @@ public class LoginPresenter {
         this.view = new LoginView();
         usuarioService = new UsuarioService();
 
-        try {
-            if(usuarioService.buscarTodos().size() == 0){
-                this.view.setVisible(false);
-                new CadastroPresenter(this);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(LoginPresenter.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         
         this.view.getBtnLogin().addActionListener( new ActionListener(){
             @Override
@@ -50,6 +43,14 @@ public class LoginPresenter {
         });
         
         this.view.setVisible(true);
+        try {
+            if(usuarioService.buscarTodos().size() == 0){
+                new CadastroPresenter(this);
+                this.view.dispose();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(LoginPresenter.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private Usuario obterUsuarioView(){

@@ -32,6 +32,7 @@ public class ListarUsuariosView extends javax.swing.JInternalFrame {
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
+        btnPermissao = new javax.swing.JButton();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -54,6 +55,8 @@ public class ListarUsuariosView extends javax.swing.JInternalFrame {
 
         btnNovo.setText("Novo");
 
+        btnPermissao.setText("Permissões");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -70,7 +73,8 @@ public class ListarUsuariosView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                    .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPermissao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -87,7 +91,9 @@ public class ListarUsuariosView extends javax.swing.JInternalFrame {
                         .addGap(12, 12, 12)
                         .addComponent(btnEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnNovo))
+                        .addComponent(btnNovo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnPermissao))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
@@ -100,6 +106,7 @@ public class ListarUsuariosView extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
+    private javax.swing.JButton btnPermissao;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblUsuarios;
     private javax.swing.JTextField txtBusca;
@@ -128,6 +135,10 @@ public class ListarUsuariosView extends javax.swing.JInternalFrame {
 
     public JButton getBtnExcluir() {
         return btnExcluir;
+    }
+
+    public JButton getBtnPermissao() {
+        return btnPermissao;
     }
     
     

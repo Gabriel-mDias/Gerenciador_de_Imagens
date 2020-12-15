@@ -13,6 +13,8 @@ import br.ufes.models.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -225,5 +227,52 @@ public class PermissaoDAO implements IPermissaoDAO{
             throw new Exception("Erro ao atualizar");
         }
     }
+
+    @Override
+    public List<Permissao>  getByUsuario(Usuario usuario) throws Exception {
+        List<Permissao> permissoes = new ArrayList<>();
+        try{
+            
+            String SQL = "SELECT p.id, p.excluir, p.compartilhar, p.visualizar, i.id, i.path, i.titulo FROM Permissao p "
+                    +   " INNER JOIN Usuario u ON u.id = p.id_usuario INNER JOIN Imagem i ON i.id = p.id_imagem"
+                    + "  WHERE u.id = ?;";
+            
+            Connection conn = this.gerenciadorConexao.conectar();
+            this.gerenciadorConexao.abreTransacao();
+            
+            PreparedStatement ps = conn.prepareStatement(SQL);
+            ps.setLong(1, usuario.getId());
+            ResultSet rs = ps.executeQuery();
+            
+            Permissao p = null;
+            ImagemReal i = null;
+            while(rs.next()){
+                p = new Permissao();
+                i = new ImagemReal();
+                p.setId(rs.getLong(1));
+                p.setExcluir(rs.getBoolean(2));
+                p.setCompartilhar(rs.getBoolean(3));
+                p.setVisualizar(rs.getBoolean(4));
+                i.setId(rs.getLong(5));
+                i.setPath(rs.getString(6));
+                i.setTitulo(rs.getString(7));
+                p.setImagem(i);
+                
+                permissoes.add(p);
+            }
+            
+            this.gerenciadorConexao.fechaTransacao();
+            this.gerenciadorConexao.close();
+            
+            return permissoes;
+            
+        }catch(Exception e){
+            this.gerenciadorConexao.desfazTransacao();
+            this.gerenciadorConexao.close();
+            throw new Exception("Erro ao buscar");
+        }
+    }
+    
+    
     
 }
